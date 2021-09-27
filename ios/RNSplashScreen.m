@@ -9,11 +9,15 @@
 
 #import "RNSplashScreen.h"
 #import <React/RCTBridge.h>
+#import "FileUtils.h"
+#import "Utils.h"
 
 static bool waiting = true;
 static bool addedJsLoadErrorObserver = false;
 static UIView* loadingView = nil;
 
+static NSString* _userDefaultsKey = @"dynamicSplashConfig";
+static NSString* _fileName = @"LaunchImage";
 @implementation RNSplashScreen
 - (dispatch_queue_t)methodQueue{
     return dispatch_get_main_queue();
@@ -32,15 +36,14 @@ RCT_EXPORT_MODULE(SplashScreen)
     }
 }
 
-+ (void)showSplash:(NSString*)splashScreen inRootView:(UIView*)rootView {
++ (void)showSplashWithRootView:(RCTRootView *)rootView {
     if (!loadingView) {
-        loadingView = [[[NSBundle mainBundle] loadNibNamed:splashScreen owner:self options:nil] objectAtIndex:0];
+        loadingView = [self getImageView];
         CGRect frame = rootView.frame;
         frame.origin = CGPointMake(0, 0);
         loadingView.frame = frame;
     }
     waiting = false;
-    
     [rootView addSubview:loadingView];
 }
 
@@ -60,6 +63,48 @@ RCT_EXPORT_MODULE(SplashScreen)
 {
     // If there was an error loading javascript, hide the splash screen so it can be shown.  Otherwise the splash screen will remain forever, which is a hassle to debug.
     [RNSplashScreen hide];
+}
+
++ (UIImageView *)getImageView {
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+
+    imageView.image = [self getImage];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.backgroundColor = [UIColor whiteColor];
+    imageView.userInteractionEnabled = YES;
+    return imageView;
+}
+
++ (UIImage *)getImage {
+    UIImage * localImage = [FileUtils loadImage:_fileName inDirectory:[RNSplashScreen getDocumentPath]];
+    if(localImage != nil) {
+        return localImage;
+    }
+
+    NSString *launchImageName = [[NSBundle mainBundle] pathForResource:_fileName ofType:@"png"];
+    if(![Utils isBlankString: launchImageName]) {
+      return [UIImage imageNamed:launchImageName];
+    }
+    return [UIImage imageNamed:_fileName];
+}
+
++ (void)downloadSplashImg:(NSString *)url {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *imageUrl = url;
+        if(![Utils isBlankString: imageUrl]) {
+            UIImage *image = [FileUtils getImageFromURL:imageUrl];
+            [FileUtils saveImage:image withFileName:_fileName inDirectory:[RNSplashScreen getDocumentPath]];
+        }
+    });
+}
+
++(NSString *)getDocumentPath{
+    NSString *docsdir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    return [docsdir stringByAppendingPathComponent:@"splashDynamic"];
+}
+
+RCT_EXPORT_METHOD(downloadSplash:(NSString *)url) {
+    [RNSplashScreen downloadSplashImg:url];
 }
 
 RCT_EXPORT_METHOD(hide) {

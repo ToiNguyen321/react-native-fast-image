@@ -7,10 +7,12 @@
  * Email:crazycodeboy@gmail.com
  */
 #import <React/RCTBridgeModule.h>
+#import <React/RCTRootView.h>
 #import <UIKit/UIKit.h>
 
 @interface RNSplashScreen : NSObject<RCTBridgeModule>
-+ (void)showSplash:(NSString*)splashScreen inRootView:(UIView*)rootView;
++ (void)showSplashWithRootView:(RCTRootView *)rootView;
++ (void)downloadSplashImg:(NSString *)url;
 + (void)show;
 + (void)hide;
 @end

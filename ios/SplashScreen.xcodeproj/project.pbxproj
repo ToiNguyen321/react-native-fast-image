@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1FEFCB0F27016C590070C286 /* FileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEFCB0727016C580070C286 /* FileUtils.m */; };
+		1FEFCB1027016C590070C286 /* HttpUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEFCB0A27016C580070C286 /* HttpUtils.m */; };
+		1FEFCB1127016C590070C286 /* SplashConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEFCB0B27016C580070C286 /* SplashConfig.m */; };
+		1FEFCB1227016C590070C286 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEFCB0E27016C590070C286 /* Utils.m */; };
 		3D7682841D8E76D10014119E /* RNSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7682831D8E76D10014119E /* RNSplashScreen.m */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +27,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1FEFCB0727016C580070C286 /* FileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileUtils.m; sourceTree = "<group>"; };
+		1FEFCB0827016C580070C286 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		1FEFCB0927016C580070C286 /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtils.h; sourceTree = "<group>"; };
+		1FEFCB0A27016C580070C286 /* HttpUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpUtils.m; sourceTree = "<group>"; };
+		1FEFCB0B27016C580070C286 /* SplashConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashConfig.m; sourceTree = "<group>"; };
+		1FEFCB0C27016C580070C286 /* HttpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpUtils.h; sourceTree = "<group>"; };
+		1FEFCB0D27016C580070C286 /* SplashConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashConfig.h; sourceTree = "<group>"; };
+		1FEFCB0E27016C590070C286 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		3D7682761D8E76B80014119E /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSplashScreen.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D7682821D8E76D10014119E /* RNSplashScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNSplashScreen.h; sourceTree = "<group>"; };
 		3D7682831D8E76D10014119E /* RNSplashScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNSplashScreen.m; sourceTree = "<group>"; };
@@ -42,6 +54,14 @@
 		3D76826D1D8E76B80014119E = {
 			isa = PBXGroup;
 			children = (
+				1FEFCB0927016C580070C286 /* FileUtils.h */,
+				1FEFCB0727016C580070C286 /* FileUtils.m */,
+				1FEFCB0C27016C580070C286 /* HttpUtils.h */,
+				1FEFCB0A27016C580070C286 /* HttpUtils.m */,
+				1FEFCB0D27016C580070C286 /* SplashConfig.h */,
+				1FEFCB0B27016C580070C286 /* SplashConfig.m */,
+				1FEFCB0827016C580070C286 /* Utils.h */,
+				1FEFCB0E27016C590070C286 /* Utils.m */,
 				3D7682821D8E76D10014119E /* RNSplashScreen.h */,
 				3D7682831D8E76D10014119E /* RNSplashScreen.m */,
 				3D7682771D8E76B80014119E /* Products */,
@@ -96,6 +116,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 3D76826D1D8E76B80014119E;
@@ -113,7 +134,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FEFCB1027016C590070C286 /* HttpUtils.m in Sources */,
 				3D7682841D8E76D10014119E /* RNSplashScreen.m in Sources */,
+				1FEFCB1127016C590070C286 /* SplashConfig.m in Sources */,
+				1FEFCB1227016C590070C286 /* Utils.m in Sources */,
+				1FEFCB0F27016C590070C286 /* FileUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
