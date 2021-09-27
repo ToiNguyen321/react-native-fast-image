@@ -11,7 +11,7 @@
 #import <UIKit/UIKit.h>
 
 @interface RNSplashScreen : NSObject<RCTBridgeModule>
-+ (void)showSplashWithRootView:(RCTRootView *)rootView;
++ (void)showSplashWithRootView:(RCTRootView *)rootView imageUrl:(NSString *) imageUrl;
 + (void)downloadSplashImg:(NSString *)url;
 + (void)show;
 + (void)hide;

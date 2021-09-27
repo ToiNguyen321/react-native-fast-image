@@ -11,6 +11,7 @@
 #import <React/RCTBridge.h>
 #import "FileUtils.h"
 #import "Utils.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 static bool waiting = true;
 static bool addedJsLoadErrorObserver = false;
@@ -36,15 +37,16 @@ RCT_EXPORT_MODULE(SplashScreen)
     }
 }
 
-+ (void)showSplashWithRootView:(RCTRootView *)rootView {
++ (void)showSplashWithRootView:(RCTRootView *)rootView imageUrl:(NSString *) imageUrl {
     if (!loadingView) {
-        loadingView = [self getImageView];
+        loadingView = [self getImageView:imageUrl];
         CGRect frame = rootView.frame;
         frame.origin = CGPointMake(0, 0);
         loadingView.frame = frame;
     }
     waiting = false;
     [rootView addSubview:loadingView];
+    [RNSplashScreen downloadSplashImg:imageUrl];
 }
 
 + (void)hide {
@@ -65,14 +67,25 @@ RCT_EXPORT_MODULE(SplashScreen)
     [RNSplashScreen hide];
 }
 
-+ (UIImageView *)getImageView {
++ (UIImageView *)getImageView:(NSString *) imageUrl{
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:[UIScreen mainScreen].bounds];
-
-    imageView.image = [self getImage];
+//    imageView.image = [self getImage];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.backgroundColor = [UIColor whiteColor];
     imageView.userInteractionEnabled = YES;
+//    UIImage *imageCache = [RNSplashScreen getImageCache];
+//    if(imageCache != nil){
+//        imageView.image = imageCache;
+//    }else{
+        [imageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"LaunchImage"] options:SDWebImageRefreshCached completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        }];
+//    }
     return imageView;
+}
+
++ (UIImage *)getImageCache {
+    return [FileUtils loadImage:_fileName inDirectory:[RNSplashScreen getDocumentPath]];
+    
 }
 
 + (UIImage *)getImage {
