@@ -3,6 +3,11 @@ package org.devio.rn.splashscreen;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Build;
+import android.widget.ImageView;
+
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 
@@ -31,10 +36,30 @@ public class SplashScreen {
                     mSplashDialog = new Dialog(activity, themeResId);
                     mSplashDialog.setContentView(R.layout.launch_screen);
                     mSplashDialog.setCancelable(false);
-
                     if (!mSplashDialog.isShowing()) {
                         mSplashDialog.show();
                     }
+                }
+            }
+        });
+    }
+
+    public static void showWithUrl(final Activity activity, final int themeResId , final String url , final int drawable) {
+        if (activity == null) return;
+        mActivity = new WeakReference<Activity>(activity);
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (!activity.isFinishing()) {
+                    mSplashDialog = new Dialog(activity, themeResId);
+                    mSplashDialog.setContentView(R.layout.launch_screen);
+                    mSplashDialog.setCancelable(false);
+                    if (!mSplashDialog.isShowing()) {
+                        mSplashDialog.show();
+                    }
+                    ImageView imageView = (ImageView) mSplashDialog.findViewById(R.id.img_splash);
+                    imageView.setImageResource(drawable);
+                    Picasso.get().load(url).placeholder(drawable).error(drawable).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(imageView);
                 }
             }
         });
